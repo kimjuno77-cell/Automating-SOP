@@ -451,17 +451,23 @@ def render_tab2():
                 from datetime import datetime
                 ts = datetime.now().strftime("%Y%m%d_%H%M%S")
                 
+                # Determine writable directory
+                try:
+                    os.makedirs(default_download_dir, exist_ok=True)
+                    output_dir = default_download_dir
+                except Exception:
+                    output_dir = "outputs"
+                    os.makedirs(output_dir, exist_ok=True)
+                
                 # Generate Word
                 docx_bytes = _make_docx(st.session_state.org_roles)
                 docx_filename = f"조직_및_업무분장_{ts}.docx"
-                docx_save_path = os.path.join(default_download_dir, docx_filename)
+                docx_save_path = os.path.join(output_dir, docx_filename)
                 
                 # Generate HTML
                 html_bytes = _make_html(st.session_state.org_roles)
                 html_filename = f"조직_및_업무분장_{ts}.html"
-                html_save_path = os.path.join(default_download_dir, html_filename)
-                
-                os.makedirs(default_download_dir, exist_ok=True)
+                html_save_path = os.path.join(output_dir, html_filename)
                 
                 # Write with retry on PermissionError
                 for path, data in [(docx_save_path, docx_bytes), (html_save_path, html_bytes)]:
@@ -487,6 +493,7 @@ def render_tab2():
                                 continue
                 
                 st.session_state.org_file_generated = True
+                st.session_state.org_save_dir = output_dir
                 st.session_state.org_generated_content = docx_bytes
                 st.session_state.org_generated_filename = docx_filename
                 st.session_state.org_html_content = html_bytes
@@ -498,9 +505,10 @@ def render_tab2():
                 st.error(f"문서 생성 중 오류: {e}")
     
     if st.session_state.get('org_file_generated', False):
+        save_dir = st.session_state.get('org_save_dir', default_download_dir)
         st.success(
             f"🎉 **조직도 보고서가 생성 및 저장되었습니다!**\n\n"
-            f"*   **💾 저장 폴더:** `{default_download_dir}`\n"
+            f"*   **💾 저장 폴더:** `{save_dir}`\n"
             f"*   **📄 Word 파일:** `{st.session_state.org_generated_filename}`\n"
             f"*   **🌐 HTML 파일:** `{st.session_state.org_html_filename}`"
         )
@@ -509,7 +517,7 @@ def render_tab2():
         with btn1:
             if st.button("📂 다운로드 폴더 열기", key="open_org_folder", use_container_width=True):
                 try:
-                    os.startfile(default_download_dir)
+                    os.startfile(save_dir)
                 except Exception:
                     pass
         
