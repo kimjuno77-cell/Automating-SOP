@@ -1,0 +1,27 @@
+digraph G {
+    rankdir=TB;
+    splines=ortho;
+    concentrate=true;
+    nodesep=0.1;
+    ranksep=0.3;
+    bgcolor="transparent";
+    pad=0.2;
+    node [fontname="Malgun Gothic", fontsize=10];
+    edge [fontname="Malgun Gothic", fontsize=9];
+    step_0 [label="A\n(D)", shape=box, style="filled,rounded", fillcolor="#e0f2fe", color="#0369a1", fontcolor="#0c4a6e", penwidth=2.5, width=2.2];
+    doc_info_0_0 [label="Doc 0\n(D)", shape=box, style="dashed,filled", fillcolor="#f8fafc", color="#64748b", fontcolor="#334155", penwidth=1.5, width=2.0];
+    doc_info_0_1 [label="Doc 1\n(D)", shape=box, style="dashed,filled", fillcolor="#f8fafc", color="#64748b", fontcolor="#334155", penwidth=1.5, width=2.0];
+    doc_info_0_2 [label="Doc 2\n(D)", shape=box, style="dashed,filled", fillcolor="#f8fafc", color="#64748b", fontcolor="#334155", penwidth=1.5, width=2.0];
+    doc_info_0_3 [label="Doc 3\n(D)", shape=box, style="dashed,filled", fillcolor="#f8fafc", color="#64748b", fontcolor="#334155", penwidth=1.5, width=2.0];
+    doc_info_0_4 [label="Doc 4\n(D)", shape=box, style="dashed,filled", fillcolor="#f8fafc", color="#64748b", fontcolor="#334155", penwidth=1.5, width=2.0];
+    doc_info_0_0 -> doc_info_0_1 [style=invis];
+    doc_info_0_1 -> doc_info_0_2 [style=invis];
+    doc_info_0_2 -> doc_info_0_3 [style=invis];
+    doc_info_0_3 -> doc_info_0_4 [style=invis];
+    { rank=same; doc_info_0_2; step_0; }
+    doc_info_0_0 -> step_0 [color="#0284c7", penwidth=1.5];
+    doc_info_0_1 -> step_0 [color="#0284c7", penwidth=1.5];
+    doc_info_0_2 -> step_0 [color="#0284c7", penwidth=1.5];
+    doc_info_0_3 -> step_0 [color="#0284c7", penwidth=1.5];
+    doc_info_0_4 -> step_0 [color="#0284c7", penwidth=1.5];
+}

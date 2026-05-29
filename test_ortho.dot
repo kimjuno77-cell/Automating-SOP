@@ -1,0 +1,22 @@
+digraph G {
+    rankdir=TB;
+    splines=ortho;
+    nodesep=0.5;
+    ranksep=0.5;
+    
+    node [shape=box];
+    
+    A1 [label="Doc 1"];
+    A2 [label="Doc 2"];
+    A3 [label="Doc 3"];
+    
+    B1 [label="Step 1"];
+    B2 [label="Step 2"];
+    
+    A1 -> B1;
+    A2 -> B1;
+    A3 -> B1;
+    B1 -> B2;
+    
+    { rank=same; A2; B1; }
+}
